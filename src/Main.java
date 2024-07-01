@@ -9,19 +9,22 @@ public class  Main <T extends Comparable<T>>{
         this.elements = elements;
     }
     public void testMaximum(){
-        maximum(elements);
+        T max = maximum(elements);
+        printMax(max);
     }
-    public static <T extends Comparable<T>> void maximum(T... elements){
+    @SafeVarargs
+    public final T maximum(T... elements) {
         if (elements == null || elements.length == 0) {
-            System.out.println("No elements provided");
-            return;
+            throw new IllegalArgumentException("No elements provided");
         }
         List<T> list = Arrays.asList(elements);
         Collections.sort(list);
-        T max = list.get(list.size() - 1);
-        System.out.println("Maximum value: " + max);
-
+        return list.get(list.size() - 1);
     }
+    public static <T> void printMax(T max) {
+        System.out.println("Maximum value: " + max);
+    }
+
     public static void main(String[] args) {
         // Test case 1
         Main<Integer> obj1 = new Main<>(45, 56, 11, 99, 12);
